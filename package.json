@@ -1,0 +1,27 @@
+{
+  "name": "greenleaders-preview",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.17.0",
+    "contentful": "^5.0.2",
+    "hedron": "^0.7.1",
+    "lodash": "^4.17.4",
+    "moment": "^2.19.1",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-markdown": "^2.5.0",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.0.14",
+    "styled-components": "^2.2.2",
+    "styled-theming": "^2.2.0",
+    "typography": "^0.16.6"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}

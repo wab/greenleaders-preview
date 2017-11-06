@@ -192,7 +192,7 @@ class Post extends Component {
     );
   }
   renderPost = () => {
-    const { createdAt } = this.state.post.sys;
+    const { createdAt } = this.state.post.sys || null;
     const {
       title,
       subtitle,
@@ -205,7 +205,7 @@ class Post extends Component {
     } = this.state.post.fields;
 
     return (
-      <RubWrapper rubriqueId={rubrique.sys.id}>
+      <RubWrapper rubriqueId={rubrique.sys.id || null}>
         <div>
           <Page fluid>
             <article>

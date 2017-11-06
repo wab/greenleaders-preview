@@ -205,7 +205,7 @@ class Post extends Component {
     } = this.state.post.fields;
 
     return (
-      <RubWrapper rubriqueId={rubrique.sys.id || null}>
+      <RubWrapper rubriqueId={rubrique ? rubrique.sys.id : null}>
         <div>
           <Page fluid>
             <article>

@@ -1,27 +1,34 @@
 import React, { Component } from "react";
+import _ from "lodash";
 import client from "../client";
 import { ThemeProvider } from "styled-components";
 
 class RubWrapper extends Component {
   state = {
     ready: false,
-    rubrique: {}
+    rubrique: {
+      fields: {
+        slug: null
+      }
+    }
   };
 
   componentWillMount() {
-    client.getEntry(this.props.rubriqueId).then(rubrique =>
-      this.setState({
-        rubrique: rubrique,
-        ready: true
-      })
-    );
+    !!this.props.rubriqueId &&
+      client.getEntry(this.props.rubriqueId).then(rubrique =>
+        this.setState({
+          rubrique: rubrique,
+          ready: true
+        })
+      );
   }
   render() {
-    return this.state.ready ? (
+    const rubrique = this.state.ready ? this.state.rubrique.fields : null;
+    return (
       <ThemeProvider theme={{ rubrique: this.state.rubrique.fields.slug }}>
         {this.props.children}
       </ThemeProvider>
-    ) : null;
+    );
   }
 }
 

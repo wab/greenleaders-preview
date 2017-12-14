@@ -116,9 +116,10 @@ const Summary = styled.section`
 `;
 
 const Main = styled.main`
+  font-weight: 300;
   h2,
   h3 {
-    line-height: 1.2;
+    line-height: 1.3;
   }
 
   ${includeListStyle};
@@ -133,7 +134,7 @@ const Main = styled.main`
       padding-top: 3.5rem;
       position: relative;
 
-      strong {
+      > strong {
         color: ${rubriqueColor};
         display: block;
         font-weight: 400;
@@ -171,6 +172,36 @@ const Main = styled.main`
       &:nth-child(4) {
         &:before {
           content: "4";
+        }
+      }
+      &:nth-child(5) {
+        &:before {
+          content: "5";
+        }
+      }
+      &:nth-child(6) {
+        &:before {
+          content: "6";
+        }
+      }
+      &:nth-child(7) {
+        &:before {
+          content: "7";
+        }
+      }
+      &:nth-child(8) {
+        &:before {
+          content: "8";
+        }
+      }
+      &:nth-child(9) {
+        &:before {
+          content: "9";
+        }
+      }
+      &:nth-child(10) {
+        &:before {
+          content: "10";
         }
       }
     }

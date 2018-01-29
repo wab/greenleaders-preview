@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import _ from "lodash";
 import client from "../client";
 import { ThemeProvider } from "styled-components";
 
@@ -23,9 +22,8 @@ class RubWrapper extends Component {
       );
   }
   render() {
-    const rubrique = this.state.ready ? this.state.rubrique.fields : null;
     return (
-      <ThemeProvider theme={{ rubrique: this.state.rubrique.fields.slug }}>
+      <ThemeProvider theme={{ rubrique: this.props.hasRubrique ? this.state.rubrique.fields.slug : 'default' }}>
         {this.props.children}
       </ThemeProvider>
     );

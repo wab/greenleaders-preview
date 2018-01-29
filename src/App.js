@@ -8,6 +8,7 @@ import { Page, Row, Column } from "hedron";
 import Thumbnail from "./components/Thumbnail";
 import SectionTitle from "./components/SectionTitle";
 import RubWrapper from "./components/RubWrapper";
+import File from "./components/File";
 import styled, { css } from "styled-components";
 import colors, { rubriqueColor } from "./utils/colors";
 import globals from "./utils/globals";
@@ -232,11 +233,12 @@ class Post extends Component {
       summary,
       main,
       speech,
+      document,
       moreInfoUrl
     } = this.state.post.fields;
 
     return (
-      <RubWrapper rubriqueId={rubrique ? rubrique.sys.id : null}>
+      <RubWrapper rubriqueId={rubrique ? rubrique.sys.id : null} hasRubrique>
         <div>
           <Page fluid>
             <article>
@@ -274,6 +276,9 @@ class Post extends Component {
                       </Blockquote>
                     </Speech>
                   )}
+                  {document && (
+                    <File documentId={document.sys.id} />
+                  )}
                 </Column>
               </Row>
             </article>
@@ -283,8 +288,69 @@ class Post extends Component {
     );
   };
   render() {
-    // const { createdAt } = this.state.post.site;
     if (!this.state.ready) return "en chargement ...";
+    return this.renderPost();
+  }
+}
+class Actu extends Component {
+  state = {
+    ready: false,
+    post: {}
+  };
+
+  componentWillMount() {
+    client.getEntry(this.props.match.params.id).then(entry =>
+      this.setState({
+        post: entry,
+        ready: true
+      })
+    );
+  }
+  renderPost = () => {
+    const { createdAt } = this.state.post.sys || null;
+    const {
+      title,
+      subtitle,
+      thumbnail,
+      text,
+      document
+    } = this.state.post.fields;
+
+    return (
+      <RubWrapper rubriqueId={null}>
+        <div>
+          <Page fluid>
+            <article>
+              <Row divisions={24}>
+                <Column lg={5} lgShift={3} md={6} mdShift={1}>
+                  {thumbnail && <Thumbnail imageId={thumbnail.sys.id} />}
+                </Column>
+                <Column lg={12} mdShift={1} md={15}>
+                  <ArticleHeader>
+                    <time dateTime={createdAt}>
+                      le {moment(createdAt).format("ll")}
+                    </time>
+                    <h1>{title}</h1>
+                    <h2>{subtitle}</h2>
+                  </ArticleHeader>
+                  {text && (
+                    <Main>
+                      <ReactMarkdown source={text} />
+                    </Main>
+                  )}
+                  {document && (
+                    <File documentId={document.sys.id} />
+                  )}
+                </Column>
+              </Row>
+            </article>
+          </Page>
+        </div>
+      </RubWrapper>
+    );
+  };
+  render() {
+    if (!this.state.ready) return "en chargement…";
 
     return this.renderPost();
   }
@@ -292,7 +358,10 @@ class Post extends Component {
 
 const App = () => (
   <Router>
-    <Route path="/:id" component={Post} />
+    <div>
+      <Route exact path="/:id" component={Post} />
+      <Route path="/actu/:id" component={Actu} />
+    </div>
   </Router>
 );
 
